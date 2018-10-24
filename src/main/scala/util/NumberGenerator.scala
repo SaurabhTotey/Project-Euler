@@ -13,19 +13,19 @@ import scala.math.BigInt
 class NumberGenerator(private val generatorFunction: Array[BigInt] => BigInt, private val storedNumbers: ArrayBuffer[BigInt], private val forgetfulness: Int = -1) {
 
     /**
-      * @return the most recently generated number
+      * @return the first stored number
       */
-    def first(): BigInt = new BigInt(this.storedNumbers(0).bigInteger)
+    def bottom(): BigInt = new BigInt(this.storedNumbers(0).bigInteger)
 
     /**
       * @return the most recently generated number
       */
-    def top(): Number = new BigInt(this.storedNumbers(this.storedNumbers.length - 1).bigInteger)
+    def top(): BigInt = new BigInt(this.storedNumbers(this.storedNumbers.length - 1).bigInteger)
 
     /**
       * @return all of the numbers that this number generator have generated
       */
-    def generatedNumbers(): Array[Number] = {
+    def generatedNumbers(): Array[BigInt] = {
         this.storedNumbers.map(number => new BigInt(number.bigInteger)).toArray
     }
 
@@ -53,5 +53,17 @@ class NumberGenerator(private val generatorFunction: Array[BigInt] => BigInt, pr
             this.generate()
         }
     }
+
+}
+
+/**
+  * A list of default number generators
+  */
+object NumberGenerator {
+
+    /**
+      * Gets a NumberGenerator that generates the Fibonacci sequence
+      */
+    def fibonaccciSequence(forgetfulness: Int = 2): NumberGenerator = new NumberGenerator({ allNumbers => allNumbers.last + allNumbers(allNumbers.length - 2) }, ArrayBuffer(1, 2), forgetfulness)
 
 }

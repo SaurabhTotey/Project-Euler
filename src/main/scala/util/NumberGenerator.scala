@@ -1,3 +1,5 @@
+package util
+
 import scala.collection.mutable.ArrayBuffer
 import scala.math.BigInt
 
@@ -5,7 +7,7 @@ import scala.math.BigInt
   * A class that generates numbers given a pattern
   *
   * @param generatorFunction a function that generates a number given the current array of numbers
-  * @param storedNumbers the numbers that the NumberGenerator starts with and will remember
+  * @param storedNumbers the numbers that the util.NumberGenerator starts with and will remember
   * @param forgetfulness Int How many numbers the number generator will store: -1 will store all numbers
   */
 class NumberGenerator(private val generatorFunction: Array[BigInt] => BigInt, private val storedNumbers: ArrayBuffer[BigInt], private val forgetfulness: Int = -1) {

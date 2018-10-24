@@ -1,4 +1,5 @@
-import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
+import scala.math.BigInt
 
 /**
   * A class that generates numbers given a pattern
@@ -7,23 +8,23 @@ import scala.collection.mutable
   * @param storedNumbers the numbers that the NumberGenerator starts with and will remember
   * @param forgetfulness Int How many numbers the number generator will store: -1 will store all numbers
   */
-class NumberGenerator(private val generatorFunction: Array[Number] => Number, private val storedNumbers: mutable.ArrayBuffer[Number], private val forgetfulness: Int = -1) {
+class NumberGenerator(private val generatorFunction: Array[BigInt] => BigInt, private val storedNumbers: ArrayBuffer[BigInt], private val forgetfulness: Int = -1) {
 
     /**
       * @return the most recently generated number
       */
-    def first(): Number = new Number(this.storedNumbers(0))
+    def first(): BigInt = new BigInt(this.storedNumbers(0).bigInteger)
 
     /**
       * @return the most recently generated number
       */
-    def top(): Number = new Number(this.storedNumbers(this.storedNumbers.length - 1))
+    def top(): Number = new BigInt(this.storedNumbers(this.storedNumbers.length - 1).bigInteger)
 
     /**
       * @return all of the numbers that this number generator have generated
       */
     def generatedNumbers(): Array[Number] = {
-        this.storedNumbers.map(number => new Number(number)).toArray
+        this.storedNumbers.map(number => new BigInt(number.bigInteger)).toArray
     }
 
     /**

@@ -15,18 +15,18 @@ class NumberGenerator(private val generatorFunction: Array[BigInt] => BigInt, pr
     /**
       * @return the first stored number
       */
-    def bottom(): BigInt = new BigInt(this.storedNumbers(0).bigInteger)
+    def bottom(): BigInt = BigInt(this.storedNumbers(0).bigInteger)
 
     /**
       * @return the most recently generated number
       */
-    def top(): BigInt = new BigInt(this.storedNumbers(this.storedNumbers.length - 1).bigInteger)
+    def top(): BigInt = BigInt(this.storedNumbers(this.storedNumbers.length - 1).bigInteger)
 
     /**
       * @return all of the numbers that this number generator have generated
       */
     def generatedNumbers(): Array[BigInt] = {
-        this.storedNumbers.map(number => new BigInt(number.bigInteger)).toArray
+        this.storedNumbers.map(number => BigInt(number.bigInteger)).toArray
     }
 
     /**
@@ -65,5 +65,29 @@ object NumberGenerator {
       * Gets a NumberGenerator that generates the Fibonacci sequence
       */
     def fibonaccciSequence(forgetfulness: Int = 2): NumberGenerator = new NumberGenerator({ allNumbers => allNumbers.last + allNumbers(allNumbers.length - 2) }, ArrayBuffer(1, 2), forgetfulness)
+
+    /**
+      * Gets a NumberGenerator that generates prime numbers
+      */
+    def primeSequence(forgetfulness: Int = -1): NumberGenerator = {
+        val generatorFunction = if (forgetfulness == -1) {
+            { primes: Array[BigInt] =>
+                var currentValue = primes.last
+                do {
+                    currentValue += 2
+                } while (primes.exists(prime => currentValue % prime == 0))
+                currentValue
+            }
+        } else {
+            { primes: Array[BigInt] =>
+                var currentValue = primes.last + 1
+                while ((BigInt(2) to currentValue / 2).exists(number => currentValue % number == 0)) {
+                    currentValue += 1
+                }
+                currentValue
+            }
+        }
+        new NumberGenerator(generatorFunction, ArrayBuffer(2, 3), forgetfulness)
+    }
 
 }

@@ -31,4 +31,13 @@ abstract class Problem(val number: Int) extends App {
         writer.close()
     }
 
+    /**
+      * Takes a final output and writes it to a file and prints it
+      *
+      * @param output the final answer for this problem
+      */
+    def outputAnswer(output: Long): Unit = {
+        this.outputAnswer(output.toString)
+    }
+
 }

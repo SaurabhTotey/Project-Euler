@@ -22,5 +22,5 @@ object Problem5 extends Problem(5) {
             primeCounts(prime) = Math.max(count, primeCounts(prime))
         })
     })
-    this.outputAnswer(primeCounts.foldRight(1L)((mapEntry, accumulated) => accumulated * Math.pow(mapEntry._1.toDouble, mapEntry._2.toDouble).toLong).toString)
+    this.outputAnswer(primeCounts.foldRight(1L)((mapEntry, accumulated) => accumulated * Math.pow(mapEntry._1.toDouble, mapEntry._2.toDouble).toLong))
 }

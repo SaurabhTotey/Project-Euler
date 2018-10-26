@@ -8,5 +8,5 @@ import util.{NumberGenerator, Problem}
 object Problem7 extends Problem(7) {
     val primeSeq = NumberGenerator.primeSequence()
     primeSeq.generate(10001 - primeSeq.generatedNumbers().length)
-    this.outputAnswer(primeSeq.top().toString)
+    this.outputAnswer(primeSeq.top())
 }

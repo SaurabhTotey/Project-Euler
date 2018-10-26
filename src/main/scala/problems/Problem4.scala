@@ -18,5 +18,5 @@ object Problem4 extends Problem(4) {
             }
         }
     }
-    this.outputAnswer(largestPalindrome.toString)
+    this.outputAnswer(largestPalindrome)
 }

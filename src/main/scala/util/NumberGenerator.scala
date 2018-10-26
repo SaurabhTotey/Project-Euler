@@ -1,5 +1,6 @@
 package util
 
+import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
 /**
@@ -9,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
   * @param storedNumbers the numbers that the util.NumberGenerator starts with and will remember
   * @param forgetfulness Int How many numbers the number generator will store: -1 will store all numbers
   */
-class NumberGenerator(private val generatorFunction: Array[Long] => Long, private val storedNumbers: ArrayBuffer[Long], private val forgetfulness: Int = -1) {
+final class NumberGenerator(private val generatorFunction: Array[Long] => Long, private val storedNumbers: ArrayBuffer[Long], private val forgetfulness: Int = -1) {
 
     /**
       * @return the first stored number

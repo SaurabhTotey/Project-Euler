@@ -1,6 +1,5 @@
 package util
 
-import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer
 
 /**
@@ -64,7 +63,7 @@ object NumberGenerator {
     /**
       * Gets a NumberGenerator that generates the Fibonacci sequence
       */
-    def fibonaccciSequence(forgetfulness: Int = 2): NumberGenerator = new NumberGenerator({ allNumbers => allNumbers.last + allNumbers(allNumbers.length - 2) }, ArrayBuffer(1, 2), forgetfulness)
+    def fibonacciSequence(forgetfulness: Int = 2): NumberGenerator = new NumberGenerator({ allNumbers => allNumbers.last + allNumbers(allNumbers.length - 2) }, ArrayBuffer(1, 2), forgetfulness)
 
     /**
       * Gets a NumberGenerator that generates prime numbers

@@ -29,6 +29,7 @@ abstract class Problem(val number: Int) extends App {
         val writer = new PrintWriter(file)
         writer.write(output)
         writer.close()
+        System.exit(0)
     }
 
     /**

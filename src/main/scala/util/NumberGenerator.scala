@@ -1,7 +1,6 @@
 package util
 
 import scala.collection.mutable.ArrayBuffer
-import scala.math.BigInt
 
 /**
   * A class that generates numbers given a pattern
@@ -10,23 +9,23 @@ import scala.math.BigInt
   * @param storedNumbers the numbers that the util.NumberGenerator starts with and will remember
   * @param forgetfulness Int How many numbers the number generator will store: -1 will store all numbers
   */
-class NumberGenerator(private val generatorFunction: Array[BigInt] => BigInt, private val storedNumbers: ArrayBuffer[BigInt], private val forgetfulness: Int = -1) {
+class NumberGenerator(private val generatorFunction: Array[Long] => Long, private val storedNumbers: ArrayBuffer[Long], private val forgetfulness: Int = -1) {
 
     /**
       * @return the first stored number
       */
-    def bottom(): BigInt = BigInt(this.storedNumbers(0).bigInteger)
+    def bottom(): Long = this.storedNumbers(0)
 
     /**
       * @return the most recently generated number
       */
-    def top(): BigInt = BigInt(this.storedNumbers(this.storedNumbers.length - 1).bigInteger)
+    def top(): Long = this.storedNumbers(this.storedNumbers.length - 1)
 
     /**
       * @return all of the numbers that this number generator have generated
       */
-    def generatedNumbers(): Array[BigInt] = {
-        this.storedNumbers.map(number => BigInt(number.bigInteger)).toArray
+    def generatedNumbers(): Array[Long] = {
+        this.storedNumbers.toArray
     }
 
     /**
@@ -71,7 +70,7 @@ object NumberGenerator {
       */
     def primeSequence(forgetfulness: Int = -1): NumberGenerator = {
         val generatorFunction = if (forgetfulness == -1) {
-            { primes: Array[BigInt] =>
+            { primes: Array[Long] =>
                 var currentValue = primes.last
                 do {
                     currentValue += 2
@@ -79,9 +78,9 @@ object NumberGenerator {
                 currentValue
             }
         } else {
-            { primes: Array[BigInt] =>
+            { primes: Array[Long] =>
                 var currentValue = primes.last + 1
-                while ((BigInt(2) to currentValue / 2).exists(number => currentValue % number == 0)) {
+                while ((2L to currentValue / 2).exists(number => currentValue % number == 0)) {
                     currentValue += 1
                 }
                 currentValue

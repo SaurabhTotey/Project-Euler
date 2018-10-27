@@ -102,4 +102,9 @@ object NumberGenerator {
       */
     def triangleSequence(forgetfulness: Int = 1): NumberGenerator = new NumberGenerator({ (allNumbers, amountOfNumbers) => allNumbers.last + amountOfNumbers + 1 }, ArrayBuffer(1), forgetfulness)
 
+    /**
+      * Gets a NumberGenerator that generates a Collatz Sequence
+      */
+    def collatzSequence(start: Long, forgetfulness: Int = 1): NumberGenerator = new NumberGenerator({ (allNumbers, _) => if (allNumbers.last % 2 == 0) allNumbers.last / 2 else allNumbers.last * 3 + 1}, ArrayBuffer(start), forgetfulness)
+
 }

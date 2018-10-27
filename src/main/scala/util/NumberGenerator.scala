@@ -105,6 +105,6 @@ object NumberGenerator {
     /**
       * Gets a NumberGenerator that generates a Collatz Sequence
       */
-    def collatzSequence(start: Long, forgetfulness: Int = 1): NumberGenerator = new NumberGenerator({ (allNumbers, _) => if (allNumbers.last % 2 == 0) allNumbers.last / 2 else allNumbers.last * 3 + 1}, ArrayBuffer(start), forgetfulness)
+    def collatzSequence(start: Long, forgetfulness: Int = 1): NumberGenerator = new NumberGenerator({ (allNumbers, _) => if (allNumbers.last % 2 == 0) allNumbers.last / 2 else allNumbers.last * 3 + 1 }, ArrayBuffer(start), forgetfulness)
 
 }

@@ -7,3 +7,4 @@ echo -e "package problems\n\nimport util.Problem\n\n/**\n  * A solution to the n
 if [ "$generateInput" != "${generateInput#[Yy]}" ]; then
     touch "input/Problem$number.txt"
 fi
+git add -A

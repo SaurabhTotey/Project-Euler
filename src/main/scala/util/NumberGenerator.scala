@@ -9,7 +9,14 @@ import scala.collection.mutable.ArrayBuffer
   * @param storedNumbers the numbers that the util.NumberGenerator starts with and will remember
   * @param forgetfulness Int How many numbers the number generator will store: -1 will store all numbers
   */
-final class NumberGenerator(private val generatorFunction: Array[Long] => Long, private val storedNumbers: ArrayBuffer[Long], private val forgetfulness: Int = -1) {
+final class NumberGenerator(private val generatorFunction: (Array[Long], Int) => Long, private val storedNumbers: ArrayBuffer[Long], private val forgetfulness: Int = -1) {
+
+    /**
+      * A read-only property to get how many numbers have been generated
+      */
+    private[this] var _numbersGenerated: Int = this.storedNumbers.length
+    def numbersGenerated: Int = _numbersGenerated
+    private def numbersGenerated_=(numGenerated: Int): Unit = { this._numbersGenerated = numGenerated }
 
     /**
       * @return the first stored number
@@ -35,7 +42,8 @@ final class NumberGenerator(private val generatorFunction: Array[Long] => Long, 
         if (amountToGenerate <= 0) {
             return
         }
-        this.storedNumbers.append(this.generatorFunction(this.storedNumbers.toArray))
+        this.storedNumbers.append(this.generatorFunction(this.storedNumbers.toArray, this.numbersGenerated))
+        this.numbersGenerated += 1
         while (this.forgetfulness != -1 && this.storedNumbers.size > this.forgetfulness) {
             this.storedNumbers.remove(0)
         }
@@ -63,14 +71,14 @@ object NumberGenerator {
     /**
       * Gets a NumberGenerator that generates the Fibonacci sequence
       */
-    def fibonacciSequence(forgetfulness: Int = 2): NumberGenerator = new NumberGenerator({ allNumbers => allNumbers.last + allNumbers(allNumbers.length - 2) }, ArrayBuffer(1, 2), forgetfulness)
+    def fibonacciSequence(forgetfulness: Int = 2): NumberGenerator = new NumberGenerator({ (allNumbers, _) => allNumbers.last + allNumbers(allNumbers.length - 2) }, ArrayBuffer(1, 2), forgetfulness)
 
     /**
       * Gets a NumberGenerator that generates prime numbers
       */
     def primeSequence(forgetfulness: Int = -1): NumberGenerator = {
         val generatorFunction = if (forgetfulness == -1) {
-            { primes: Array[Long] =>
+            { (primes: Array[Long], _: Int) =>
                 var currentValue = primes.last
                 do {
                     currentValue += 2
@@ -78,7 +86,7 @@ object NumberGenerator {
                 currentValue
             }
         } else {
-            { primes: Array[Long] =>
+            { (primes: Array[Long], _: Int) =>
                 var currentValue = primes.last + 1
                 while ((2L to currentValue / 2).exists(number => currentValue % number == 0)) {
                     currentValue += 1
@@ -88,5 +96,10 @@ object NumberGenerator {
         }
         new NumberGenerator(generatorFunction, ArrayBuffer(2, 3), forgetfulness)
     }
+
+    /**
+      * Gets a NumberGenerator that generates triangle numbers
+      */
+    def triangleSequence(forgetfulness: Int = 1): NumberGenerator = new NumberGenerator({ (allNumbers, amountOfNumbers) => allNumbers.last + amountOfNumbers + 1 }, ArrayBuffer(1), forgetfulness)
 
 }

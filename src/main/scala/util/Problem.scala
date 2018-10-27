@@ -4,6 +4,8 @@ import java.io.{File, PrintWriter}
 
 import scala.io.Source
 
+import sys.process._
+
 /**
   * Defines a Project Euler problem
   *
@@ -29,6 +31,7 @@ abstract class Problem(val number: Int) extends App {
         val writer = new PrintWriter(file)
         writer.write(output)
         writer.close()
+        s"git add ${file.getPath}".!
         System.exit(0)
     }
 

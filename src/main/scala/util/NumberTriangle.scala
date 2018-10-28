@@ -14,8 +14,27 @@ final class NumberTriangle extends ArrayBuffer[ArrayBuffer[Long]] {
       * @param row the row to add to the triangle
       */
     def addRow(row: ArrayBuffer[Long]): Unit = {
-        assert(row.length == this.last.length + 2)
+        if (this.nonEmpty) {
+            assert(row.length == this.last.length + 1)
+        }
         this += row
+    }
+
+    /**
+      * Adds the given amount of rows to the triangle with values of 0
+      *
+      * @param numberOfRowsToAdd how many rows to add
+      */
+    def addRows(numberOfRowsToAdd: Int): Unit = {
+        if (numberOfRowsToAdd <= 0) {
+            return
+        }
+        if (this.isEmpty) {
+            this.addRow(ArrayBuffer(0))
+        } else {
+            this.addRow(ArrayBuffer((0 until this.last.length + 1).map(_ => 0L): _*))
+        }
+        this.addRows(numberOfRowsToAdd - 1)
     }
 
     /**
@@ -25,8 +44,8 @@ final class NumberTriangle extends ArrayBuffer[ArrayBuffer[Long]] {
       * @param col the column of the current position
       * @return the column positions of the coordinates of the row below the given row
       */
-    def coordsBelow(row: Int, col: Int): Array[Int] = {
-        if (row == this.size - 1) {
+    def colsBelow(row: Int, col: Int): Array[Int] = {
+        if (row >= this.length - 1) {
             Array()
         } else {
             Array(col, col + 1)
@@ -40,7 +59,7 @@ final class NumberTriangle extends ArrayBuffer[ArrayBuffer[Long]] {
       * @param col the column of the current position
       * @return the column positions of the coordinates of the row above the given row
       */
-    def coordsAbove(row: Int, col: Int): Array[Int] = {
+    def colsAbove(row: Int, col: Int): Array[Int] = {
         if (col == 0) {
             Array(0)
         } else if (col == this(row).length - 1) {

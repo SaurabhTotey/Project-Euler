@@ -5,7 +5,7 @@ import util.{NumberTriangle, Problem}
 import scala.collection.mutable.ArrayBuffer
 
 /**
-  * A solution to the nth problem of Project Euler
+  * A solution to the eighteenth problem of Project Euler
   */
 object Problem18 extends Problem(18) {
     val triangle = new NumberTriangle()
@@ -14,7 +14,7 @@ object Problem18 extends Problem(18) {
     })
     def getLargestSumOfDownwardPathForTriangle(triangle: NumberTriangle): Long = {
         val weightsTriangle = new NumberTriangle()
-        weightsTriangle.addRows(this.triangle.length)
+        weightsTriangle.addRows(triangle.length)
         triangle.indices.foreach(i => weightsTriangle(i) = triangle(i).clone())
         for (row <- weightsTriangle.length - 2 to 0 by -1) {
             for (col <- weightsTriangle(row).indices) {

@@ -87,10 +87,10 @@ object NumberGenerator {
             }
         } else {
             { (primes: Array[Long], _: Int) =>
-                var currentValue = primes.last + 1
-                while ((2L to currentValue / 2).exists(number => currentValue % number == 0)) {
-                    currentValue += 1
-                }
+                var currentValue = primes.last
+                do {
+                    currentValue += 2
+                } while ((3L to Math.sqrt(currentValue).ceil.toLong).exists(number => currentValue % number == 0))
                 currentValue
             }
         }

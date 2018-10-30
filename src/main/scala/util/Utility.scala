@@ -12,7 +12,7 @@ object Utility {
       * @return the factors of the given number
       */
     def factorsOf(number: Long): Array[Long] = {
-        (1L to Math.sqrt(number).ceil.toLong).filter(smallerNum => number % smallerNum == 0).flatMap(factor => if (number / factor == factor) Array(factor) else Array(factor, number / factor)).toArray
+        (1L to Math.sqrt(number).floor.toLong).filter(smallerNum => number % smallerNum == 0).flatMap(factor => if (number / factor == factor) Array(factor) else Array(factor, number / factor)).toArray
     }
 
 }

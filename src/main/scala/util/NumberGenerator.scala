@@ -90,7 +90,7 @@ object NumberGenerator {
                 var currentValue = primes.last
                 do {
                     currentValue += 2
-                } while ((3L to Math.sqrt(currentValue).ceil.toLong).exists(number => currentValue % number == 0))
+                } while ((3L to Math.sqrt(currentValue).floor.toLong).exists(number => currentValue % number == 0))
                 currentValue
             }
         }

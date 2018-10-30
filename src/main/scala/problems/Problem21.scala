@@ -3,7 +3,7 @@ package problems
 import util.{Problem, Utility}
 
 /**
-  * A solution to the nth problem of Project Euler
+  * A solution to the twenty first problem of Project Euler
   */
 object Problem21 extends Problem(21) {
     val factorSums = (0 until 10000).map(number => Utility.factorsOf(number).sum - number)

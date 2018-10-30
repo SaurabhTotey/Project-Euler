@@ -5,7 +5,7 @@ import java.util.{Calendar, GregorianCalendar}
 import util.Problem
 
 /**
-  * A solution to the nth problem of Project Euler
+  * A solution to the nineteenth problem of Project Euler
   */
 object Problem19 extends Problem(19) {
     val currentDate = new GregorianCalendar()

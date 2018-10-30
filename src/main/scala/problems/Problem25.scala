@@ -1,13 +1,19 @@
 package problems
 
-import util.{NumberGenerator, Problem}
+import util.Problem
 
 /**
   * A solution to the twenty fifth problem of Project Euler
-  * TODO: doesn't yet work because I need to upgrade NumberGenerator to allow BigInt because Long can't hold 1000 digit numbers
   */
 object Problem25 extends Problem(25) {
-    val fibSeq = NumberGenerator.fibonacciSequence()
-    fibSeq.generateWhile(() => fibSeq.top().toString.length < 1000)
-    this.outputAnswer(fibSeq.numbersGenerated)
+    var first = BigInt(1)
+    var second = BigInt(1)
+    var index = 2
+    while (second.toString.length < 1000) {
+        val third = first + second
+        first = second
+        second = third
+        index += 1
+    }
+    this.outputAnswer(index)
 }

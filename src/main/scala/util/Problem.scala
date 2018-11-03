@@ -1,5 +1,7 @@
 package util
 
+import java.awt.Toolkit
+import java.awt.datatransfer.StringSelection
 import java.io.{File, PrintWriter}
 
 import scala.io.Source
@@ -34,6 +36,7 @@ abstract class Problem(val number: Int) extends App {
         writer.write(report)
         writer.close()
         s"git add ${file.getPath}".!
+        Toolkit.getDefaultToolkit.getSystemClipboard.setContents(new StringSelection(output), null) //TODO: doesn't work on Linux Mint
         System.exit(0)
     }
 

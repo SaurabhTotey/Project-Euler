@@ -3,7 +3,6 @@ package util
 import java.io.{File, PrintWriter}
 
 import scala.io.Source
-
 import sys.process._
 
 /**
@@ -13,6 +12,8 @@ import sys.process._
   */
 abstract class Problem(val number: Int) extends App {
 
+    //The time when the problem was ran or started
+    val startTime = System.currentTimeMillis()
     //The input for this problem
     val input: String = try { Source.fromFile(s"input/Problem${this.number}.txt").mkString } catch { case _: Exception => "" }
 
@@ -22,14 +23,15 @@ abstract class Problem(val number: Int) extends App {
       * @param output the final answer for this problem
       */
     def outputAnswer(output: String): Unit = {
-        println(output)
+        val report = s"Answer: $output\nTime: ${System.currentTimeMillis() - this.startTime}ms"
+        println(report)
         val file = new File(s"output/Problem${this.number}.txt")
         if (file.exists()) {
             file.delete()
         }
         file.createNewFile()
         val writer = new PrintWriter(file)
-        writer.write(output)
+        writer.write(report)
         writer.close()
         s"git add ${file.getPath}".!
         System.exit(0)

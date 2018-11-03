@@ -1,1 +1,2 @@
-648
+Answer: 648
+Time: 259ms

@@ -18,6 +18,26 @@ object Utility {
     }
 
     /**
+      * Determines whether a number is prime or not
+      *
+      * @param number the number to check the primality of
+      * @return whether the given number is prime
+      */
+    def isPrime(number: Long): Boolean = {
+        factorsOf(number).length == 2
+    }
+
+    /**
+      * Determines whether the given value string is a palindrome or not (same backwards and forwards)
+      *
+      * @param value the value to check if it is a palindrome
+      * @return whether the given value is a palindrome
+      */
+    def isPalindrome(value: String): Boolean = {
+        (0 to value.length / 2).forall(i => value.charAt(i) == value.charAt(value.length - i - 1))
+    }
+
+    /**
       * Gets all the permutations of the given list of objects
       *
       * @param objects The set of items to make the permutations of

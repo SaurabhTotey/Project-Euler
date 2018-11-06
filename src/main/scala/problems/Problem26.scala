@@ -14,9 +14,8 @@ object Problem26 extends Problem(26) {
         if (remainder == 0) {
             return 0
         }
-        val product = currentNumerator - remainder
         if (remainders.contains(remainder)) {
-            return remainders.length - remainders.lastIndexOf(product)
+            return remainders.length - remainders.lastIndexOf(remainder)
         }
         numberOfRepeatedDigitsFromUnitDivision(denominator, remainder, remainders ++ Array(remainder))
     }

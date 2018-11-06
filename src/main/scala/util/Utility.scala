@@ -24,7 +24,7 @@ object Utility {
       * @return whether the given number is prime
       */
     def isPrime(number: Long): Boolean = {
-        factorsOf(number).length == 2
+        number == 2 || !(3L to Math.sqrt(number).floor.toLong by 2).exists(i => number % i == 0)
     }
 
     /**

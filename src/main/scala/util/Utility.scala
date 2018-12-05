@@ -60,7 +60,7 @@ object Utility {
     def greatestCommonFactorOf(numbers: Array[Long]): Long = {
         val factorsOfFirst = this.factorsOf(numbers(0))
         val factorsOfRest = numbers.slice(1, numbers.length).flatMap(number => this.factorsOf(number)).distinct
-        factorsOfFirst.reverse.find(factorOfFirst => factorsOfRest.contains(factorOfFirst)).get
+        factorsOfFirst.sorted.reverse.find(factorOfFirst => factorsOfRest.contains(factorOfFirst)).get
     }
 
     /**

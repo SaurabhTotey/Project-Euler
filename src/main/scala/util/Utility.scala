@@ -51,42 +51,43 @@ object Utility {
     }
 
     /**
-      * Gets the greatest factor of two numbers
-      * The GCF is the largest factor that divides two numbers
+      * Gets the greatest factor of the given numbers
+      * The GCF is the largest factor that divides all the given numbers
       *
-      * @param num1 the first number to get the GCF with
-      * @param num2 the second number to get the GCF with
-      * @return the greatest common factor of num1 and num2
+      * @param numbers an array of numbers to get the GCF of
+      * @return the greatest factor that divides all numbers in the given array
       */
-    def greatestCommonFactorOf(num1: Long, num2: Long): Long = {
-        val factors1 = this.factorsOf(num1)
-        val factors2 = this.factorsOf(num2)
-        factors1.reverse.find(factor1 => factors2.contains(factor1)).get
+    def greatestCommonFactorOf(numbers: Array[Long]): Long = {
+        val factorsOfFirst = this.factorsOf(numbers(0))
+        val factorsOfRest = numbers.slice(1, numbers.length).flatMap(number => this.factorsOf(number)).distinct
+        factorsOfFirst.reverse.find(factorOfFirst => factorsOfRest.contains(factorOfFirst)).get
     }
 
     /**
       * Returns whether the given numbers are coprime
       * Numbers are coprime if their GCF is 1
-      * If a fraction were to be made with num1 and num2, it would not be simplifiable if they were coprime
+      * If a fraction were to be made with any two of the given numbers, the fraction would not be simplifiable if they were coprime
       *
-      * @param num1 the first number to check coprime of
-      * @param num2 the second number to check coprime of
-      * @return whether num1 and num2 are coprime towards each other
+      * @param numbers an array of numbers to check coprime of
+      * @return whether all the given numbers are coprime towards each other
       */
-    def isCoprime(num1: Long, num2: Long): Boolean = {
-        this.greatestCommonFactorOf(num1, num2) == 1
+    def isCoprime(numbers: Array[Long]): Boolean = {
+        this.greatestCommonFactorOf(numbers) == 1
     }
 
     /**
-      * Gets the lowest common multiple of two numbers
-      * The LCM is the first number that is divisible by the two given numbers
+      * Gets the lowest common multiple of the given numbers
+      * The LCM is the first number that is divisible by all the given numbers
       *
-      * @param num1 the first number to get the LCM of
-      * @param num2 the second number to get the LCM of
-      * @return the lowest common multiple of num1 and num2
+      * @param numbers an array of numbers to get the LCM of
+      * @return the lowest common multiple of all the numbers in the given array
       */
-    def lowestCommonMultipleOf(num1: Long, num2: Long): Long = {
-        num1 / this.greatestCommonFactorOf(num1, num2) * num2
+    def lowestCommonMultipleOf(numbers: Array[Long]): Long = {
+        if (numbers.length <= 1) {
+            numbers(0) //This will error on an empty list, but that is desirable
+        } else {
+            this.lowestCommonMultipleOf(Array(numbers(0) / this.greatestCommonFactorOf(numbers.slice(0, 2)) * numbers(1)) ++ numbers.slice(2, numbers.length))
+        }
     }
 
 }

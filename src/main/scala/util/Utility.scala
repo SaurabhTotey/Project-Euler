@@ -50,4 +50,43 @@ object Utility {
         objects.indices.flatMap(i => permutationsOf(objects.slice(0, i) ++ objects.slice(i + 1, objects.length)).map(permutation => Array(objects(i)) ++ permutation)).toArray
     }
 
+    /**
+      * Gets the greatest factor of two numbers
+      * The GCF is the largest factor that divides two numbers
+      *
+      * @param num1 the first number to get the GCF with
+      * @param num2 the second number to get the GCF with
+      * @return the greatest common factor of num1 and num2
+      */
+    def greatestCommonFactorOf(num1: Long, num2: Long): Long = {
+        val factors1 = this.factorsOf(num1)
+        val factors2 = this.factorsOf(num2)
+        factors1.reverse.find(factor1 => factors2.contains(factor1)).get
+    }
+
+    /**
+      * Returns whether the given numbers are coprime
+      * Numbers are coprime if their GCF is 1
+      * If a fraction were to be made with num1 and num2, it would not be simplifiable if they were coprime
+      *
+      * @param num1 the first number to check coprime of
+      * @param num2 the second number to check coprime of
+      * @return whether num1 and num2 are coprime towards each other
+      */
+    def isCoprime(num1: Long, num2: Long): Boolean = {
+        this.greatestCommonFactorOf(num1, num2) == 1
+    }
+
+    /**
+      * Gets the lowest common multiple of two numbers
+      * The LCM is the first number that is divisible by the two given numbers
+      *
+      * @param num1 the first number to get the LCM of
+      * @param num2 the second number to get the LCM of
+      * @return the lowest common multiple of num1 and num2
+      */
+    def lowestCommonMultipleOf(num1: Long, num2: Long): Long = {
+        num1 / this.greatestCommonFactorOf(num1, num2) * num2
+    }
+
 }

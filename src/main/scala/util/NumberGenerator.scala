@@ -107,4 +107,9 @@ object NumberGenerator {
       */
     def collatzSequence(start: Long, forgetfulness: Int = 1): NumberGenerator = new NumberGenerator({ (allNumbers, _) => if (allNumbers.last % 2 == 0) allNumbers.last / 2 else allNumbers.last * 3 + 1 }, ArrayBuffer(start), forgetfulness)
 
+    /**
+      * Gets a NumberGenerator that generates factorial numbers
+      */
+    def factorialSequence(forgetfulness: Int = 1): NumberGenerator = new NumberGenerator({ (allNumbers, amountOfNumbers) => allNumbers.last * amountOfNumbers }, ArrayBuffer(1), forgetfulness)
+
 }

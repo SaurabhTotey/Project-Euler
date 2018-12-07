@@ -24,7 +24,7 @@ object Utility {
       * @return whether the given number is prime
       */
     def isPrime(number: Long): Boolean = {
-        number == 2 || !(3L to Math.sqrt(number).floor.toLong by 2).exists(i => number % i == 0)
+        number == 2 || number % 2 != 0 && !(3L to Math.sqrt(number).floor.toLong by 2).exists(i => number % i == 0)
     }
 
     /**
@@ -38,16 +38,16 @@ object Utility {
     }
 
     /**
-      * Gets all the permutations of the given list of objects
+      * Gets all the permutations of the given indexed sequence of objects
       *
-      * @param objects The set of items to make the permutations of
-      * @return An array of all permutations of the objects array
+      * @param objects The indexed sequence of items to make the permutations of
+      * @return An indexed sequence of all permutations of the objects array
       */
-    def permutationsOf[T: ClassTag](objects: Array[T]): Array[Array[T]] = {
+    def permutationsOf[T: ClassTag](objects: IndexedSeq[T]): IndexedSeq[IndexedSeq[T]] = {
         if (objects.length == 1) {
-            return Array(Array(objects(0)))
+            return IndexedSeq(IndexedSeq(objects(0)))
         }
-        objects.indices.flatMap(i => permutationsOf(objects.slice(0, i) ++ objects.slice(i + 1, objects.length)).map(permutation => Array(objects(i)) ++ permutation)).toArray
+        objects.indices.flatMap(i => permutationsOf(objects.slice(0, i) ++ objects.slice(i + 1, objects.length)).map(permutation => IndexedSeq(objects(i)) ++ permutation))
     }
 
     /**

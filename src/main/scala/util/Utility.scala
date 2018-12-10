@@ -57,7 +57,7 @@ object Utility {
       * @param numbers an array of numbers to get the GCF of
       * @return the greatest factor that divides all numbers in the given array
       */
-    def greatestCommonFactorOf(numbers: Array[Long]): Long = {
+    def greatestCommonFactorOf(numbers: IndexedSeq[Long]): Long = {
         val factorsOfFirst = this.factorsOf(numbers(0))
         val factorsOfRest = numbers.slice(1, numbers.length).flatMap(number => this.factorsOf(number)).distinct
         factorsOfFirst.sorted.reverse.find(factorOfFirst => factorsOfRest.contains(factorOfFirst)).get
@@ -71,7 +71,7 @@ object Utility {
       * @param numbers an array of numbers to check coprime of
       * @return whether all the given numbers are coprime towards each other
       */
-    def isCoprime(numbers: Array[Long]): Boolean = {
+    def isCoprime(numbers: IndexedSeq[Long]): Boolean = {
         this.greatestCommonFactorOf(numbers) == 1
     }
 
@@ -82,7 +82,7 @@ object Utility {
       * @param numbers an array of numbers to get the LCM of
       * @return the lowest common multiple of all the numbers in the given array
       */
-    def lowestCommonMultipleOf(numbers: Array[Long]): Long = {
+    def lowestCommonMultipleOf(numbers: IndexedSeq[Long]): Long = {
         if (numbers.length <= 1) {
             numbers(0) //This will error on an empty list, but that is desirable
         } else {

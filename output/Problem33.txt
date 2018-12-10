@@ -1,2 +1,2 @@
 Answer: 100
-Time: 443ms
+Time: 529ms

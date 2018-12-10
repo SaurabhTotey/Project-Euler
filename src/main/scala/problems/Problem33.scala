@@ -17,8 +17,8 @@ object Problem33 extends Problem(33) {
                 val reducedNumerator = numeratorDigits.find(digit => digit != commonDigit).getOrElse(commonDigit).toInt
                 val reducedDenominator = denominatorDigits.find(digit => digit != commonDigit).getOrElse(commonDigit).toInt
                 if (reducedNumerator != 0 && reducedDenominator != 0) {
-                    val digitsGCF = Utility.greatestCommonFactorOf(Array(reducedNumerator, reducedDenominator))
-                    val actualGCF = Utility.greatestCommonFactorOf(Array(numerator, denominator))
+                    val digitsGCF = Utility.greatestCommonFactorOf(IndexedSeq(reducedNumerator, reducedDenominator))
+                    val actualGCF = Utility.greatestCommonFactorOf(IndexedSeq(numerator, denominator))
                     if (reducedNumerator / digitsGCF == numerator / actualGCF && reducedDenominator / digitsGCF == denominator / actualGCF) {
                         numerators ++= Array(numerator)
                         denominators ++= Array(denominator)
@@ -29,6 +29,6 @@ object Problem33 extends Problem(33) {
     })
     val numeratorsMultiple = numerators.product
     val denominatorsMultiple = denominators.product
-    val gcf = Utility.greatestCommonFactorOf(Array(numeratorsMultiple, denominatorsMultiple))
+    val gcf = Utility.greatestCommonFactorOf(IndexedSeq(numeratorsMultiple, denominatorsMultiple))
     this.outputAnswer(denominatorsMultiple / gcf)
 }

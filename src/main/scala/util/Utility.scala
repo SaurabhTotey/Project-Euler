@@ -31,7 +31,7 @@ object Utility {
 		this.primeSeq.generateWhile(() => this.primeSeq.top() < number)
 		var remainingNumber = number
 		val primeFrequencies = new mutable.HashMap[Long, Long]()
-		var remainingPrimes = this.primeSeq.generatedNumbers().slice(1, this.primeSeq.numbersGenerated)
+		var remainingPrimes = this.primeSeq.generatedNumbers()
 		while (remainingNumber != 1) {
 			while (remainingNumber % remainingPrimes(0) != 0) {
 				remainingPrimes = remainingPrimes.slice(1, remainingPrimes.length)

@@ -5,7 +5,7 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * A class that generates numbers given a pattern
   *
-  * @param generatorFunction a function that generates a number given the current array of numbers
+  * @param generatorFunction a function that generates a number given the current array of numbers and the amount of generated numbers
   * @param storedNumbers the numbers that the util.NumberGenerator starts with and will remember
   * @param forgetfulness Int How many numbers the number generator will store: -1 will store all numbers
   */
@@ -101,6 +101,16 @@ object NumberGenerator {
       * Gets a NumberGenerator that generates triangle numbers
       */
     def triangleSequence(forgetfulness: Int = 1): NumberGenerator = new NumberGenerator({ (allNumbers, amountOfNumbers) => allNumbers.last + amountOfNumbers + 1 }, ArrayBuffer(1), forgetfulness)
+
+	/**
+	  * Gets a NumberGenerator that generates pentagon numbers
+	  */
+	def pentagonSequence(forgetfulness: Int = 1): NumberGenerator = new NumberGenerator({ (allNumbers, amountOfNumbers) => allNumbers.last + amountOfNumbers * 3 + 1 }, ArrayBuffer(1), forgetfulness)
+
+	/**
+	  * Gets a NumberGenerator that generates hexagon numbers
+	  */
+	def hexagonSequence(forgetfulness: Int = 1): NumberGenerator = new NumberGenerator({ (allNumbers, amountOfNumbers) => allNumbers.last + amountOfNumbers * 4 + 1 }, ArrayBuffer(1), forgetfulness)
 
     /**
       * Gets a NumberGenerator that generates a Collatz Sequence

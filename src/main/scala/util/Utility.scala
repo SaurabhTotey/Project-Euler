@@ -1,11 +1,15 @@
 package util
 
+import scala.collection.mutable
 import scala.reflect.ClassTag
 
 /**
   * A collection of useful methods
   */
 object Utility {
+
+	//A private number generator for use in checking for primality and dealing with primes
+	private val primeSeq = NumberGenerator.primeSequence(-1)
 
     /**
       * Gets all the factors of the given number
@@ -17,6 +21,30 @@ object Utility {
         (1L to Math.sqrt(number).floor.toLong).filter(smallerNum => number % smallerNum == 0).flatMap(factor => if (number / factor == factor) Array(factor) else Array(factor, number / factor)).toArray
     }
 
+	/**
+	  * Gets all the prime factors of the given number and how many of them make up that number
+	  *
+	  * @param number the number to prime factorize
+	  * @return a map where the keys are the prime factors and the values are the frequencies of the corresponding prime factors in making up the given number
+	  */
+	def primeFactorFrequenciesOf(number: Long): Map[Long, Long] = {
+		this.primeSeq.generateWhile(() => this.primeSeq.top() < number)
+		var remainingNumber = number
+		val primeFrequencies = new mutable.HashMap[Long, Long]()
+		var remainingPrimes = this.primeSeq.generatedNumbers().slice(1, this.primeSeq.numbersGenerated)
+		while (remainingNumber != 1) {
+			while (remainingNumber % remainingPrimes(0) != 0) {
+				remainingPrimes = remainingPrimes.slice(1, remainingPrimes.length)
+			}
+			primeFrequencies.put(remainingPrimes(0), 0)
+			while (remainingNumber % remainingPrimes(0) == 0) {
+				primeFrequencies.put(remainingPrimes(0), primeFrequencies(remainingPrimes(0)) + 1)
+				remainingNumber /= remainingPrimes(0)
+			}
+		}
+		primeFrequencies.toMap
+	}
+
     /**
       * Determines whether a number is prime or not
       *
@@ -24,7 +52,8 @@ object Utility {
       * @return whether the given number is prime
       */
     def isPrime(number: Long): Boolean = {
-        number == 2 || number % 2 != 0 && !(3L to Math.sqrt(number).floor.toLong by 2).exists(i => number % i == 0)
+		this.primeSeq.generateWhile(() => this.primeSeq.top() < number)
+		this.primeSeq.generatedNumbers().contains(number)
     }
 
     /**
@@ -59,8 +88,8 @@ object Utility {
       */
     def greatestCommonFactorOf(numbers: IndexedSeq[Long]): Long = {
         val factorsOfFirst = this.factorsOf(numbers(0))
-        val factorsOfRest = numbers.slice(1, numbers.length).flatMap(number => this.factorsOf(number)).distinct
-        factorsOfFirst.sorted.reverse.find(factorOfFirst => factorsOfRest.contains(factorOfFirst)).get
+        val factorsOfRest = numbers.slice(1, numbers.length).map(number => this.factorsOf(number))
+        factorsOfFirst.sorted.reverse.find(factorOfFirst => factorsOfRest.forall(factors => factors.contains(factorOfFirst))).get
     }
 
     /**

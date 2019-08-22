@@ -10,12 +10,12 @@ for outputFileName in output/*.txt; do
             time=${line%"ms"}
             time=${time#"Time: "}
             times+=" $time"
-            ((totalTime+=$time))
+            ((totalTime+=time))
         fi
-    done < $outputFileName
+    done < "$outputFileName"
 done
-times=$(echo $(printf "%s\n" $times | sort -n))
-times=( $times )
+times=$(printf "%s\n" "$times" | sort -n)
+times=( "$times" )
 
 amount=${#times[@]}
 firstQuartileIndex=$((amount / 4))
@@ -28,8 +28,8 @@ firstQuartile=${times[$firstQuartileIndex]}
 median=${times[$medianIndex]}
 thirdQuartile=${times[$thirdQuartileIndex]}
 largest=${times[-1]}
-numberOfBad=`bin/BadlySolved.sh`
-numberOfBad=( $numberOfBad )
+numberOfBad=$(bin/BadlySolved.sh)
+numberOfBad=( "$numberOfBad" )
 numberOfBad=${#numberOfBad[@]}
 range=$((largest - smallest))
 

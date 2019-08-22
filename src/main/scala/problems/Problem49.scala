@@ -3,8 +3,8 @@ package problems
 import util.{Problem, Utility}
 
 /**
-  * A solution to the forty ninth problem of Project Euler
-  */
+ * A solution to the forty ninth problem of Project Euler
+ */
 object Problem49 extends Problem(49) {
 	(1 until 4500).foreach(commonDifference => {
 		(1001 to 9999 - commonDifference * 2 by 2).foreach(a1 => {

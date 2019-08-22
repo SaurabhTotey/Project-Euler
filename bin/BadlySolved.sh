@@ -9,11 +9,11 @@ for outputFileName in output/*.txt; do
         if [ $lineNumber -eq 2 ]; then
             time=${line%"ms"}
             time=${time#"Time: "}
-            if [ $time -ge 60000 ]; then
+            if [ "$time" -ge 60000 ]; then
                 badlySolvedProblems+=" $problem"
             fi
         fi
-    done < $outputFileName
+    done < "$outputFileName"
 done
-badlySolvedProblems=$(echo $(printf "%s\n" $badlySolvedProblems | sort -n))
-echo $badlySolvedProblems
+badlySolvedProblems=$(printf "%s\n" "$badlySolvedProblems" | sort -n)
+echo "$badlySolvedProblems"

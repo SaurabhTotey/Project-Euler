@@ -3,8 +3,8 @@ package problems
 import util.{NumberGenerator, Problem}
 
 /**
-  * A solution to the forty fifth problem of Project Euler
-  */
+ * A solution to the forty fifth problem of Project Euler
+ */
 object Problem45 extends Problem(45) {
 	val triangleSeq = NumberGenerator.triangleSequence(-1)
 	val pentagonSeq = NumberGenerator.pentagonSequence(-1)

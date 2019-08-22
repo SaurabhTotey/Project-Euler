@@ -3,8 +3,8 @@ package problems
 import util.{Problem, Utility}
 
 /**
-  * A solution to the forty seventh problem of Project Euler
-  */
+ * A solution to the forty seventh problem of Project Euler
+ */
 object Problem47 extends Problem(47) {
 	var i = 5L
 	var currentPrimeFactorizations = (2 to 5).map(i => Utility.primeFactorFrequenciesOf(i))

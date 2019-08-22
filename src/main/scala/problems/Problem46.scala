@@ -5,8 +5,8 @@ import util.{NumberGenerator, Problem}
 import scala.collection.mutable.ArrayBuffer
 
 /**
-  * A solution to the forty sixth problem of Project Euler
-  */
+ * A solution to the forty sixth problem of Project Euler
+ */
 object Problem46 extends Problem(46) {
 	val squareSeq = new NumberGenerator({ (_, amountOfNumbers) => Math.pow(amountOfNumbers + 1, 2).toLong }, ArrayBuffer(1), -1)
 	val primeSeq = NumberGenerator.primeSequence(-1)

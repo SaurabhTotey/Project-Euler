@@ -1,0 +1,2 @@
+Answer: 4075
+Time: 30ms
